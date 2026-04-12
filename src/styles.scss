@@ -1,1 +1,226 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+:root {
+  /* ☀️ THEME CLAIR */
+  --bg-gradient: linear-gradient(-45deg, #e0eafc, #cfdef3, #a1c4fd, #fbc2eb, #c2e9fb);
+  --surface-bg: rgba(255, 255, 255, 0.25); 
+  --surface-border: rgba(255, 255, 255, 0.5);
+  
+  --text-main: #2d3436;
+  --text-muted: #636e72;
+  --primary: #d35400; 
+  --primary-glow: rgba(211, 84, 0, 0.3);
+  --accent: #27ae60;
+  --danger: #e74c3c;
+  --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+
+body.dark-theme {
+  /* 🌙 THEME SOMBRE */
+  --bg-gradient: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1f4037, #0d1b2a);
+  --surface-bg: rgba(16, 24, 32, 0.35); 
+  --surface-border: rgba(255, 255, 255, 0.1);
+  
+  --text-main: #f5f6fa;
+  --text-muted: #b2bec3;
+  --primary: #f39c12; 
+  --primary-glow: rgba(243, 156, 18, 0.4);
+  --accent: #00b894; 
+  --danger: #ff7675;
+  --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Outfit', system-ui, sans-serif;
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  transition: color 0.5s ease;
+  overflow-x: hidden;
+}
+
+/* =========================================
+   ARRIÈRE-PLAN ANIMÉ & ORBES
+   ========================================= */
+.animated-background {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: -2; /* Tout au fond */
+  background: var(--bg-gradient);
+  background-size: 400% 400%;
+  animation: gradientBG 8s ease infinite; /* 8s, plus rapide */
+  overflow: hidden;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Les orbes flottantes */
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px); /* J'ai légèrement réduit le flou pour plus de visibilité */
+  opacity: 0.6; /* Un poil plus opaque */
+  z-index: 0;
+  animation: floatShape infinite alternate ease-in-out;
+}
+
+.shape-1 { 
+  width: max(350px, 40vw); 
+  height: max(350px, 40vw); 
+  background: var(--primary); 
+  top: -10%; left: -10%; 
+  animation-duration: 12s; 
+}
+.shape-2 { 
+  width: max(300px, 35vw); 
+  height: max(300px, 35vw); 
+  background: var(--accent); 
+  bottom: -10%; right: -5%; 
+  animation-duration: 15s; 
+  animation-delay: -5s;
+}
+.shape-3 { 
+  width: max(250px, 30vw); 
+  height: max(250px, 30vw); 
+  background: var(--danger); 
+  top: 40%; left: 50%; 
+  animation-duration: 18s; 
+  animation-delay: -2s;
+}
+
+@keyframes floatShape {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  100% { transform: translate(8vw, 6vh) scale(1.1) rotate(10deg); }
+}
+
+/* =========================================
+   GLASSMORPHISM PARFAIT
+   ========================================= */
+.glass-panel {
+  background: var(--surface-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--surface-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  z-index: 10;
+  
+  /* Centrage intérieur */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================
+   ÉLÉMENTS GLOBAUX (LIMITES & CENTRAGE)
+   ========================================= */
+button.btn-primary, button.btn-secondary {
+  width: 100%;
+  max-width: 280px; /* Limite la taille */
+  margin: 0 auto; /* Centre */
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  font-family: 'Outfit', sans-serif;
+}
+
+button.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 15px var(--primary-glow);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px var(--primary-glow);
+    filter: brightness(1.1);
+  }
+  &:active { transform: translateY(1px); }
+  &:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); box-shadow: none; }
+}
+
+button.btn-secondary {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text-main);
+  border: 1px solid var(--surface-border);
+
+  .dark-theme & { background: rgba(255, 255, 255, 0.05); }
+  &:hover:not(:disabled) { background: rgba(0, 0, 0, 0.2); }
+  .dark-theme &:hover:not(:disabled) { background: rgba(255, 255, 255, 0.1); }
+}
+
+input.game-input, input.charade-input, input.cesar-input, input.score-input {
+  width: 100%;
+  max-width: 350px; /* Limite la taille */
+  margin: 0 auto; /* Centre */
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-family: 'Outfit', sans-serif;
+  background: rgba(0,0,0,0.05);
+  border: 2px solid var(--surface-border);
+  color: var(--text-main);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+
+  .dark-theme & { background: rgba(255,255,255,0.05); }
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 15px var(--primary-glow);
+    background: transparent;
+  }
+  &.error { border-color: var(--danger); }
+}
+
+/* Utilitaires de centrage pour les divs contenant les actions/inputs */
+.actions, .input-group, .score-entry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+/* =========================================
+   ANIMATIONS D'APPARITION & MICRO-INTERACTIONS
+   ========================================= */
+
+/* L'animation fluide quand on change d'étape */
+@keyframes smoothEnter {
+  0% { 
+    opacity: 0; 
+    transform: translateY(15px) scale(0.98); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+}
+
+/* Classe à appliquer sur les composants */
+.fade-enter {
+  animation: smoothEnter 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* On améliore le "clic" des boutons pour un effet pop satisfaisant */
+button.btn-primary:active, button.btn-secondary:active {
+  transform: scale(0.95) !important;
+  transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}

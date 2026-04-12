@@ -1,0 +1,58 @@
+<div class="quiz-container fade-enter">
+  <h2 class="title">Interrogatoire Impérial</h2>
+
+  @if (!isQuizFinished()) {
+    <div class="status-board">
+      <span class="question-badge">Question {{ currentQuestion() }} / 10</span>
+      
+      <div 
+        class="timer-display" 
+        [class.danger]="timeLeft() <= 5"
+        [class.is-ticking]="isTimerRunning()">
+        {{ timeLeft() }}s
+      </div>
+    </div>
+
+    <div class="actions">
+      @if (!isTimerRunning()) {
+        <button 
+          class="btn-primary" 
+          (click)="startTimer()" 
+          [disabled]="timeLeft() === 0">
+          {{ timeLeft() === 15 ? 'Démarrer le chrono' : 'Reprendre' }}
+        </button>
+      } @else {
+        <button 
+          class="btn-secondary" 
+          (click)="pauseTimer()">
+          ⏸️ Pause
+        </button>
+      }
+
+      <button class="btn-secondary" (click)="nextQuestion()">
+        {{ currentQuestion() === 10 ? 'Terminer l\'interrogatoire' : 'Question suivante' }}
+      </button>
+    </div>
+  } @else {
+    <div class="score-entry fade-enter">
+      <h3>Fin de l'interrogatoire</h3>
+      <p>Maître du Jeu, quel est le score final du candidat ?</p>
+      
+      <input 
+        type="number" 
+        min="0" 
+        max="10" 
+        [value]="finalScore() || ''" 
+        (input)="updateScore($event)" 
+        placeholder="Score sur 10"
+        class="score-input">
+        
+      <button 
+        class="btn-primary" 
+        (click)="validateQuiz()" 
+        [disabled]="finalScore() === null">
+        Générer la clé (Partie 1)
+      </button>
+    </div>
+  }
+</div>

@@ -1,0 +1,48 @@
+<div class="victory-container fade-enter">
+
+  @if (step() === 'key') {
+    <div class="key-section fade-in">
+      <h2>🎉 Félicitations ! 🎉</h2>
+      <p>Tu as reconstitué ta clé Instant Gaming :</p>
+      
+      <div class="full-key">
+        {{ gameService.fullKey() }}
+      </div>
+
+      <button class="btn-primary" (click)="playRickroll()">
+        Réclamer le reste du cadeau
+      </button>
+    </div>
+  }
+
+  @else if (step() === 'video') {
+    <div class="video-section fade-in">
+      <video 
+        #videoPlayer 
+        src="video/rickroll.mp4" 
+        (ended)="onVideoEnded()"
+        playsinline
+        class="rickroll-video">
+      </video>
+
+      <!-- <button class="btn-skip" (click)="skipVideo()">
+        Passer la blague...
+      </button> -->
+    </div>
+  }
+
+  @else if (step() === 'final') {
+    <div class="final-section fade-in">
+      <h2>Le véritable équipement</h2>
+      <div class="message-box">
+        <p>Bon, d'accord, trêve de plaisanterie...</p>
+        <p>Le Conseil Jedi a ressenti une autre perturbation dans la Force. Une clé numérique, c'est bien, mais il manque un visage familier à ta collection.</p>
+        <p>Un vaisseau spatial a besoin de son pilote, ou plutôt... <strong>de sa tête !</strong></p>
+        <br>
+        <p class="highlight">Regarde dans [la cachette] pour récupérer ton autre cadeau.</p>
+        <p><strong>Joyeux Anniversaire !</strong> 🎂</p>
+      </div>
+    </div>
+  }
+
+</div>

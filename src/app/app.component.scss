@@ -1,0 +1,70 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.app-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+.game-container {
+  width: 100%;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  
+  @media (max-width: 480px) { padding: 1.5rem; }
+}
+
+/* Le design du switch Clair/Sombre - FIXÉ EN HAUT À DROITE DE L'ÉCRAN */
+.theme-toggle {
+  position: fixed; /* Fixé par rapport à la fenêtre */
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  z-index: 999; /* Au-dessus de tout */
+  
+  .toggle-track {
+    width: 64px;
+    height: 32px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+    border: 1px solid var(--surface-border);
+    backdrop-filter: blur(5px);
+    transition: background 0.3s ease;
+
+    .dark-theme & { background: rgba(255, 255, 255, 0.1); }
+
+    .icon { font-size: 14px; z-index: 1; }
+
+    .toggle-thumb {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 26px;
+      height: 26px;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      z-index: 2;
+    }
+
+    &.is-dark .toggle-thumb {
+      transform: translateX(32px);
+      background: #2c3e50;
+    }
+  }
+}

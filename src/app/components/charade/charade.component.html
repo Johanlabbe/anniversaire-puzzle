@@ -1,0 +1,33 @@
+<div class="charade-container fade-enter">
+  <h2 class="title">L'Épreuve de l'Esprit</h2>
+
+  <div class="riddle-box">
+    <p>Mon premier est le chiffre qui suit le neuf.</p>
+    <p>Mon deuxième est un assemblage de fils tressés qui sert à attacher.</p>
+    <p>Mon tout est un endroit où on se réunit pour discutter.</p>
+    <p class="question">Qui suis-je ?</p>
+  </div>
+
+  <div class="input-group">
+    <input 
+      type="text" 
+      [value]="answer()" 
+      (input)="updateAnswer($event)" 
+      (keyup.enter)="submitAnswer()"
+      placeholder="Saisis ta réponse..."
+      class="game-input"
+      [class.error]="hasError()"
+    >
+    
+    @if (hasError()) {
+      <p class="error-msg">Ce n'est pas la réponse que tu cherches... Essaie encore !</p>
+    }
+  </div>
+
+  <button 
+    class="btn-primary" 
+    (click)="submitAnswer()" 
+    [disabled]="!answer().trim()">
+    Valider la réponse
+  </button>
+</div>

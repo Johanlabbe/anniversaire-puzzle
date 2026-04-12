@@ -1,0 +1,42 @@
+<div class="cesar-container fade-enter">
+  <h2 class="title">L'Épreuve de Décodage</h2>
+
+  <div class="cipher-box">
+    <p class="intro-text">Un message crypté a été intercepté. Trouve la clé pour le lire :</p>
+    
+    <div class="letters-container">
+      <div class="letter-card">K</div>
+      <div class="letter-card">F</div>
+      <div class="letter-card">E</div>
+      <div class="letter-card">J</div>
+    </div>
+
+    <div class="hint">
+      <span class="icon">⚙️</span> Indice de décalage : <strong>-1</strong>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <input 
+      type="text" 
+      [value]="answer()" 
+      (input)="updateAnswer($event)" 
+      (keyup.enter)="submitAnswer()"
+      placeholder="Entrez le code décrypté..."
+      class="game-input"
+      [class.error]="hasError()"
+      autocomplete="off"
+    >
+    
+    @if (hasError()) {
+      <p class="error-msg">Code incorrect. Le système de sécurité s'impatiente...</p>
+    }
+  </div>
+
+  <button 
+    class="btn-primary" 
+    (click)="submitAnswer()" 
+    [disabled]="!answer().trim()">
+    Déchiffrer
+  </button>
+</div>
